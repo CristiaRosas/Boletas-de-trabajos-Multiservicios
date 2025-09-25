@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignatureCanvas from 'react-signature-canvas';
 import { jsPDF } from 'jspdf';
@@ -30,13 +30,18 @@ const FormatoControlVisita = () => {
   });
 
   const [observaciones, setObservaciones] = useState('');
-  const [totalTrabajos, setTotalTrabajos] = useState('');
+  const [totalTrabajos, setTotalTrabajos] = useState('0.00');
   
   // Nuevos estados para firmas
   const [firmaCliente, setFirmaCliente] = useState(null);
   const [firmaTecnico, setFirmaTecnico] = useState(null);
   const [mensajeFirmaCliente, setMensajeFirmaCliente] = useState('');
   const [mensajeFirmaTecnico, setMensajeFirmaTecnico] = useState('');
+
+  // Calcular total automáticamente con useEffect
+  useEffect(() => {
+    calcularTotal();
+  }, [equipos]);
 
   // Calcular total automáticamente
   const calcularTotal = () => {
@@ -45,7 +50,7 @@ const FormatoControlVisita = () => {
       const cantidad = parseInt(equipo.cantidad) || 0;
       return sum + (precio * cantidad);
     }, 0);
-    return total.toFixed(2);
+    setTotalTrabajos(total.toFixed(2));
   };
 
   // Manejar cambios
@@ -58,10 +63,6 @@ const FormatoControlVisita = () => {
     const newEquipos = [...equipos];
     newEquipos[index] = { ...newEquipos[index], [field]: value };
     setEquipos(newEquipos);
-    
-    if (field === 'precio' || field === 'cantidad') {
-      setTotalTrabajos(calcularTotal());
-    }
   };
 
   const agregarEquipo = () => {
@@ -72,7 +73,6 @@ const FormatoControlVisita = () => {
     if (equipos.length > 1) {
       const newEquipos = equipos.filter((_, i) => i !== index);
       setEquipos(newEquipos);
-      setTotalTrabajos(calcularTotal());
     }
   };
 
@@ -168,7 +168,7 @@ const FormatoControlVisita = () => {
     doc.setFontSize(10);
     doc.setTextColor(...colorTexto);
     doc.setFont('helvetica', 'normal');
-    doc.text('MULTISERVICIOS S15 - SISTEMAS TÉCNICOS DE SEGURIDAD', 105, 32, { align: 'center' });
+    doc.text('MULTISERVICIOS STS - SISTEMAS TÉCNICOS DE SEGURIDAD', 105, 32, { align: 'center' });
     
     doc.setFontSize(8);
     doc.text('Tel.: 5634-0802 • 5330-5559 • 2440-8162', 105, 37, { align: 'center' });
@@ -403,7 +403,7 @@ const FormatoControlVisita = () => {
     setEquipos([{ cantidad: '', descripcion: '', precio: '' }]);
     setHorarios({ horaEntrada: '', horaSalida: '' });
     setObservaciones('');
-    setTotalTrabajos('');
+    setTotalTrabajos('0.00');
     setFirmaCliente(null);
     setFirmaTecnico(null);
     setMensajeFirmaCliente('');
@@ -427,7 +427,7 @@ const FormatoControlVisita = () => {
             />
             <div>
               <h1 className="text-3xl font-bold mb-2">ORDEN DE TRABAJO TÉCNICO</h1>
-              <div className="text-2xl font-bold">MULTISERVICIOS S15</div>
+              <div className="text-2xl font-bold">MULTISERVICIOS STS</div>
               <div className="text-lg">SISTEMAS TÉCNICOS DE SEGURIDAD</div>
             </div>
           </div>
@@ -599,7 +599,7 @@ const FormatoControlVisita = () => {
                 <tr>
                   <td colSpan="3" className="px-4 py-3 text-right font-semibold">TOTAL:</td>
                   <td colSpan="2" className="px-4 py-3 font-bold text-lg">
-                    Q. {totalTrabajos || '0.00'}
+                    Q. {totalTrabajos}
                   </td>
                 </tr>
               </tfoot>
