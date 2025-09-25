@@ -413,11 +413,11 @@ const FormatoControlVisita = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
       <div className="container mx-auto p-6 bg-white rounded-lg shadow-xl max-w-4xl">
         
         {/* Encabezado mejorado */}
-        <div className="text-center mb-8 p-6 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg">
+        <div className="text-center mb-8 p-6 bg-gradient-to-r from-white-900 to-white-700 text-black rounded-lg">
           <div className="flex items-center justify-center mb-4">
             <img 
               src={LogoMultis} 

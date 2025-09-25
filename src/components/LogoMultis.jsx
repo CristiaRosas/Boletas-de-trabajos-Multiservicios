@@ -16,7 +16,7 @@ const LogoMultis = () => {
       />
       <div className="text-center">
         <div className="font-bold text-xs">MULTISERVICIOS</div>
-        <div className="text-xs">S15</div>
+        <div className="text-xs">STS</div>
         <div className="text-xs">SISTEMAS TÉCNICOS DE SEGURIDAD</div>
       </div>
     </div>
