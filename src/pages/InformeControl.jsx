@@ -162,7 +162,7 @@ const FormatoControlVisita = () => {
     doc.setFontSize(16);
     doc.setTextColor(...colorPrimario);
     doc.setFont('helvetica', 'bold');
-    doc.text('ORDEN DE TRABAJO TÉCNICO', 105, 25, { align: 'center' });
+    doc.text('BOLETA  DE TRABAJO TÉCNICO', 105, 25, { align: 'center' });
 
     // Información de la empresa
     doc.setFontSize(10);
@@ -386,7 +386,7 @@ const FormatoControlVisita = () => {
     doc.text(`Documento generado el ${new Date().toLocaleDateString()}`, 105, pageHeight - 10, { align: 'center' });
 
     // Guardar PDF
-    const nombreArchivo = `orden_trabajo_${datosTrabajo.nombreCliente || 'cliente'}_${datosTrabajo.fecha || ''}.pdf`
+    const nombreArchivo = `BOLETA_trabajo_${datosTrabajo.nombreCliente || 'cliente'}_${datosTrabajo.fecha || ''}.pdf`
       .replace(/[^a-zA-Z0-9_]/g, '_');
     
     doc.save(nombreArchivo);
@@ -426,7 +426,7 @@ const FormatoControlVisita = () => {
               onError={(e) => e.target.style.display = 'none'}
             />
             <div>
-              <h1 className="text-3xl font-bold mb-2">ORDEN DE TRABAJO TÉCNICO</h1>
+              <h1 className="text-3xl font-bold mb-2">BOLETA DE TRABAJO TÉCNICO</h1>
               <div className="text-2xl font-bold">MULTISERVICIOS STS</div>
               <div className="text-lg">SISTEMAS TÉCNICOS DE SEGURIDAD</div>
             </div>
