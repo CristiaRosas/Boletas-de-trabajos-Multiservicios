@@ -1,4 +1,3 @@
-// src/components/LogoMultis.jsx
 import React from 'react';
 import LogoImage from '../assets/logo-multis.jpg';
 
